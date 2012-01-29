@@ -12,7 +12,7 @@ from django.utils.importlib import import_module
 from django_cofingo.utils import django_filter_to_jinja2
 
 
-VERSION = (0, 1)
+VERSION = (0, 1, 1)
 __version__ = '.'.join(map(str, VERSION))
 
 log = logging.getLogger('django_cofingo')

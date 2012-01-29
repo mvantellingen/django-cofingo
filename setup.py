@@ -78,7 +78,7 @@ with open('README.rst', 'r') as fh:
 
 setup(
     name='django-cofingo',
-    version='0.1.0',
+    version='0.1.1',
     license='BSD',
     url='http://github.com/mvantellingen/django-cofingo',
     author='Michael van Tellingen',
