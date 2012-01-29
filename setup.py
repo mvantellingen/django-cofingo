@@ -14,14 +14,14 @@ class RunTests(Command):
     description = "Run the tests"
     user_options = []
     extra_env = {}
-    extra_args = ['cofingo']
+    extra_args = ['django_cofingo']
 
     def run(self):
         for env_name, env_value in self.extra_env.items():
             os.environ[env_name] = str(env_value)
 
         sys.path.append(os.path.join(
-            os.path.dirname(__file__), 'cofingo', 'tests'))
+            os.path.dirname(__file__), 'django_cofingo', 'tests'))
 
         from django.conf import settings
         from django.core.management import execute_manager
@@ -42,12 +42,12 @@ class RunTests(Command):
                     'django.contrib.sessions',
                     'django.contrib.sites',
 
-                    'cofingo',
+                    'django_cofingo',
                     'apps.urls_app',
                     'apps.fullstack_app',
                 ],
                 TEMPLATE_LOADERS=[
-                    'cofingo.Loader'
+                    'django_cofingo.Loader'
                 ],
                 ROOT_URLCONF='apps.urls',
                 DEBUG=False,
@@ -77,10 +77,10 @@ with open('README.rst', 'r') as fh:
 
 
 setup(
-    name='cofingo',
+    name='django-cofingo',
     version='0.1.0',
     license='BSD',
-    url='http://github.com/mvantellingen/cofingo',
+    url='http://github.com/mvantellingen/django-cofingo',
     author='Michael van Tellingen',
     author_email='michaelvantellingen@gmail.com',
     description='Jinja2 template renderer for Django',

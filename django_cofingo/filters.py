@@ -11,7 +11,7 @@ from jinja2 import filters
 from jinja2 import Markup
 from jinja2.runtime import Undefined
 
-from cofingo.library import Library
+from django_cofingo.library import Library
 
 library = Library()
 
@@ -98,7 +98,7 @@ def floatformat(value, arg=-1):
     checking, staying with the philosophy.
     """
     from django.template.defaultfilters import floatformat
-    from cofingo.utils import django_filter_to_jinja2
+    from django_cofingo.utils import django_filter_to_jinja2
     arg = int(arg)  # raise exception
     result = django_filter_to_jinja2(floatformat)(value, arg)
     if result == '':  # django couldn't handle the value

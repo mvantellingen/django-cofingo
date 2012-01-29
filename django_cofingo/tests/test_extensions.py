@@ -5,7 +5,7 @@ from django.test import TestCase
 class TestLoadExtension(TestCase):
 
     def test_load(self):
-        from cofingo.extensions import LoadExtension
+        from django_cofingo.extensions import LoadExtension
         env = Environment(extensions=[LoadExtension])
 
         # the load tag is a no-op
@@ -24,7 +24,7 @@ class TestLoadExtension(TestCase):
 class TestSpacelessExtension(TestCase):
 
     def test_spaceless(self):
-        from cofingo.extensions import SpacelessExtension
+        from django_cofingo.extensions import SpacelessExtension
         env = Environment(extensions=[SpacelessExtension])
 
         result = env.from_string("""{% spaceless %}
@@ -36,7 +36,7 @@ class TestSpacelessExtension(TestCase):
         self.assertEqual(result, expected)
 
     def test_spaceless_strong(self):
-        from cofingo.extensions import SpacelessExtension
+        from django_cofingo.extensions import SpacelessExtension
         env = Environment(extensions=[SpacelessExtension])
 
         result = env.from_string("""{% spaceless %}
@@ -51,12 +51,12 @@ class TestSpacelessExtension(TestCase):
 
 class TestUrlExtension(TestCase):
     def setUp(self):
-        from cofingo.extensions import URLExtension
+        from django_cofingo.extensions import URLExtension
 
         self.env = Environment(extensions=[URLExtension])
 
     def _from_string(self, source):
-        from cofingo import Template
+        from django_cofingo import Template
         return self.env.from_string(source, template_class=Template)
 
     def test_url(self):
@@ -126,7 +126,7 @@ class TestUrlExtension(TestCase):
 
 class TestWithExtension(TestCase):
     def test_with(self):
-        from cofingo.extensions import WithExtension
+        from django_cofingo.extensions import WithExtension
         env = Environment(extensions=[WithExtension])
 
         template = env.from_string(
@@ -137,7 +137,7 @@ class TestWithExtension(TestCase):
 
 class TestCacheExtension(TestCase):
     def test_cache(self):
-        from cofingo.extensions import CacheExtension
+        from django_cofingo.extensions import CacheExtension
         env = Environment(extensions=[CacheExtension])
 
         x = 0

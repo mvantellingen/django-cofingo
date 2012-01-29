@@ -9,13 +9,13 @@ from django.template.context import get_standard_processors
 from django.template.loader import BaseLoader
 from django.utils.importlib import import_module
 
-from cofingo.utils import django_filter_to_jinja2
+from django_cofingo.utils import django_filter_to_jinja2
 
 
 VERSION = (0, 1)
 __version__ = '.'.join(map(str, VERSION))
 
-log = logging.getLogger('cofingo')
+log = logging.getLogger('django_cofingo')
 
 
 class Environment(jinja2.Environment):
@@ -72,8 +72,8 @@ class Environment(jinja2.Environment):
             * Filters, extensions, tests and globals from DJANGO_SETTINGS
 
         """
-        from cofingo import filters as cofingo_filters
-        from cofingo import extensions as cofingo_extensions
+        from django_cofingo import filters as cofingo_filters
+        from django_cofingo import extensions as cofingo_extensions
         from django.conf import settings
         from django.template import builtins as django_builtins
         from django.core.urlresolvers import get_callable

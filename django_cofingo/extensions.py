@@ -4,7 +4,7 @@ from jinja2.ext import Extension
 from jinja2.exceptions import TemplateSyntaxError
 from jinja2 import Markup
 
-from cofingo.library import Library
+from django_cofingo.library import Library
 
 
 class LoadExtension(Extension):

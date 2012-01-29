@@ -1,6 +1,6 @@
 from django.test import TestCase
 
-from cofingo.library import Library
+from django_cofingo.library import Library
 
 
 class TestLibrary(TestCase):

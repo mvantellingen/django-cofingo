@@ -3,7 +3,7 @@ from django.test import TestCase
 
 
 def r(s, context={}):
-    from cofingo import env
+    from django_cofingo import env
     return env.from_string(s).render(context)
 
 
@@ -15,7 +15,7 @@ class TestFilters(TestCase):
 
         Make sure that those are properly made available in Jinja2.
         """
-        from cofingo import filters
+        from django_cofingo import filters
         assert not hasattr(filters, 'get_digit')  # has no port
         assert r('{{ "23475"|get_digit("2") }}') == '7'
         assert r('{{ unknown|get_digit("2") }}') == ''
@@ -67,7 +67,7 @@ class TestFilters(TestCase):
             r('{{ 4.33|floatformat("foo") }}')
 
     def test_date_stuff(self):
-        from cofingo import env
+        from django_cofingo import env
         assert r('a{{ d|date("Y") }}b', {'d': date(2007, 01, 01)}) == 'a2007b'
         assert r('a{{ d|time("H") }}b', {'d': datetime(2007, 01, 01, 12, 01, 01)}) == 'a12b'
         # TODO: timesince, timeuntil

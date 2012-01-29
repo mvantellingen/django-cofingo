@@ -1,4 +1,4 @@
-from cofingo.library import Library
+from django_cofingo.library import Library
 
 library = Library()
 
