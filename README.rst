@@ -7,20 +7,20 @@ Getting started
 
 The easiest way to install Cofingo is by using **pip**::
 
-    pip install cofingo
+    pip install django-cofingo
 
 The development version can be found at::
 
-    http://github.com/mvantellingen/cofingo
+    http://github.com/mvantellingen/django-cofingo
 
 
 Configuration
 =============
 
-Add `cofingo.Loader` to your settings::
+Add `django_cofingo.Loader` to your settings::
 
     TEMPLATE_LOADERS = (
-        'cofingo.Loader',
+        'django_cofingo.Loader',
         'django.template.loaders.filesystem.Loader',
         'django.template.loaders.app_directories.Loader',
     )
@@ -39,7 +39,7 @@ Creating custom filters and extensions
 
 Create a `helpers` module in your django app and add the following::
 
-    from cofingo.library import Library
+    from django_cofingo.library import Library
 
     library = Library()
 
@@ -52,7 +52,7 @@ If you want to add a filter add the following::
 
 Adding an extension can be done as follow::
 
-    from cofingo.library import Library
+    from django_cofingo.library import Library
     from django_assets.env import get_env
     from webassets.ext.jinja2 import AssetsExtension
 
