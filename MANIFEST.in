@@ -1,0 +1,4 @@
+include setup.py README.rst MANIFEST.in LICENSE
+recursive-include cofingo/tests/apps/fullstack_app/templates *
+global-exclude *~
+
