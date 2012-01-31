@@ -46,6 +46,20 @@ class Environment(jinja2.Environment):
         for library in self._libraries:
             library.set_env(self)
 
+        # Hook Jinja's i18n extension up to Django's translation backend
+        # if i18n is enabled; note that we differ here from Django, in that
+        # Django always has it's i18n functionality available (that is, if
+        # enabled in a template via {% load %}), but uses a null backend if
+        # the USE_I18N setting is disabled. Jinja2 provides something similar
+        # (install_null_translations), but instead we are currently not
+        # enabling the extension at all when USE_I18N=False.
+        # While this is basically an incompatibility with Django, currently
+        # the i18n tags work completely differently anyway, so for now, I
+        # don't think it matters.
+        if settings.USE_I18N:
+            from django.utils import translation
+            self.install_gettext_translations(translation)
+
     def from_string(self, source, globals=None, template_class=None):
         return super(Environment, self).from_string(
             source, globals, template_class or Template)
