@@ -144,43 +144,6 @@ class URLExtension(Extension):
         return url
 
 
-class WithExtension(Extension):
-    """Adds a value to the context (inside this block) for caching and
-    easy access, just like the Django-version does.
-
-    For example::
-
-        {% with person.some_sql_method as total %}
-            {{ total }} object{{ total|pluralize }}
-        {% endwith %}
-
-    TODO: The new Scope node introduced in Jinja2 6334c1eade73 (the 2.2
-    dev version) would help here, but we don't want to rely on that yet.
-    See also:
-        http://dev.pocoo.org/projects/jinja/browser/tests/test_ext.py
-        http://dev.pocoo.org/projects/jinja/ticket/331
-        http://dev.pocoo.org/projects/jinja/ticket/329
-    """
-
-    tags = set(['with'])
-
-    def parse(self, parser):
-        lineno = parser.stream.next().lineno
-        value = parser.parse_expression()
-        parser.stream.expect('name:as')
-        name = parser.stream.expect('name')
-        body = parser.parse_statements(['name:endwith'], drop_needle=True)
-        # Use a local variable instead of a macro argument to alias
-        # the expression.  This allows us to nest "with" statements.
-        body.insert(0, nodes.Assign(nodes.Name(name.value, 'store'), value))
-        return nodes.CallBlock(
-                self.call_method('_render_block'), [], [], body).\
-                    set_lineno(lineno)
-
-    def _render_block(self, caller=None):
-        return caller()
-
-
 class CacheExtension(Extension):
     """Exactly like Django's own tag, but supports full Jinja2
     expressiveness for all arguments.
@@ -324,7 +287,6 @@ class CsrfTokenExtension(Extension):
 # nicer import names
 load = LoadExtension
 url = URLExtension
-with_ = WithExtension
 cache = CacheExtension
 spaceless = SpacelessExtension
 csrf_token = CsrfTokenExtension
@@ -333,7 +295,6 @@ library = Library()
 
 library.extension(load)
 library.extension(url)
-library.extension(with_)
 library.extension(cache)
 library.extension(spaceless)
 library.extension(csrf_token)

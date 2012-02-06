@@ -1,0 +1,5 @@
+0.1.3:
+* Drop the custom with tag from Coffin and add the Jinja2 with_ extension
+
+0.1.2:
+* Small update to fix errors from {% trans %} tag. 

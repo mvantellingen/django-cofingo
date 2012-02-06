@@ -12,7 +12,7 @@ from django.utils.importlib import import_module
 from django_cofingo.utils import django_filter_to_jinja2
 
 
-VERSION = (0, 1, 1)
+VERSION = (0, 1, 3)
 __version__ = '.'.join(map(str, VERSION))
 
 log = logging.getLogger('django_cofingo')
@@ -96,7 +96,7 @@ class Environment(jinja2.Environment):
         # is not maintained: https://github.com/mitsuhiko/jinja2/issues#issue/3
         # Extensions support priorities, which should be used instead.
         options = {
-            'extensions': [],
+            'extensions': ['jinja2.ext.with_'],
             'filters': {},
             'globals': {},
             'tests': {},
