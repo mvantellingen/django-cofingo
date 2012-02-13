@@ -4,6 +4,7 @@ import logging
 
 import jinja2
 from django.conf import settings
+from django.core.exceptions import ObjectDoesNotExist
 from django.template.base import Origin, TemplateDoesNotExist
 from django.template.context import get_standard_processors
 from django.template.loader import BaseLoader
@@ -63,6 +64,20 @@ class Environment(jinja2.Environment):
     def from_string(self, source, globals=None, template_class=None):
         return super(Environment, self).from_string(
             source, globals, template_class or Template)
+
+    def getattr(self, obj, attribute):
+        try:
+            return super(Environment, self).getattr(obj, attribute)
+        except ObjectDoesNotExist as exc:
+            return self.undefined(obj=obj, name=attribute,
+                hint=unicode(exc))
+
+    def getitem(self, obj, attribute):
+        try:
+            return super(Environment, self).getitem(obj, attribute)
+        except ObjectDoesNotExist as exc:
+            return self.undefined(obj=obj, name=attribute,
+                hint=unicode(exc))
 
     def _get_loaders(self):
         """Mimic Django's setup by loading templates from directories in
