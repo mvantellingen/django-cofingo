@@ -124,17 +124,6 @@ class TestUrlExtension(TestCase):
         self.assertEqual(result, '/app/two/')
 
 
-class TestWithExtension(TestCase):
-    def test_with(self):
-        from django_cofingo.extensions import WithExtension
-        env = Environment(extensions=[WithExtension])
-
-        template = env.from_string(
-            '{{ x }}{% with y as x %}{{ x }}{% endwith %}{{ x }}')
-        result = template.render({'x': 'x', 'y': 'y'})
-        self.assertEqual(result, 'xyx')
-
-
 class TestCacheExtension(TestCase):
     def test_cache(self):
         from django_cofingo.extensions import CacheExtension
