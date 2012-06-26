@@ -12,6 +12,7 @@ from jinja2 import Markup
 from jinja2.runtime import Undefined
 
 from django_cofingo.library import Library
+from django_cofingo.utils import template_localtime
 
 library = Library()
 
@@ -29,6 +30,8 @@ def timeuntil(value, *args):
     if value is None or isinstance(value, Undefined):
         return u''
     from django.utils.timesince import timeuntil
+
+    value = template_localtime(value)
     return timeuntil(value, *args)
 
 
@@ -40,6 +43,8 @@ def date(value, arg=None):
     from django.utils.dateformat import format
     if arg is None:
         arg = settings.DATE_FORMAT
+
+    value = template_localtime(value)
     return format(value, arg)
 
 
@@ -51,6 +56,8 @@ def time(value, arg=None):
     from django.utils.dateformat import time_format
     if arg is None:
         arg = settings.TIME_FORMAT
+
+    value = template_localtime(value)
     return time_format(value, arg)
 
 

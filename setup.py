@@ -5,7 +5,8 @@ from setuptools import setup, find_packages, Command
 
 install_requires = [
     'Django>=1.3',
-    'Jinja2>=2.5'
+    'Jinja2>=2.5',
+    'pytz',
 ]
 
 
@@ -78,7 +79,7 @@ with open('README.rst', 'r') as fh:
 
 setup(
     name='django-cofingo',
-    version='0.2',
+    version='0.2.2',
     license='BSD',
     url='http://github.com/mvantellingen/django-cofingo',
     author='Michael van Tellingen',

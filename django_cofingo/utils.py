@@ -1,5 +1,44 @@
-from jinja2 import environmentfilter, Markup, Undefined
+import datetime
+
+import pytz
+from django.conf import settings
 from django.utils.safestring import EscapeData, SafeData
+from jinja2 import environmentfilter, Markup, Undefined
+
+if settings.TIME_ZONE:
+    local_tzinfo = pytz.timezone(settings.TIME_ZONE)
+else:
+    local_tzinfo = pytz.utc
+
+
+def localtime(value):
+    return value.astimezone(local_tzinfo)
+
+
+def is_naive(value):
+    """
+    Determines if a given datetime.datetime is naive.
+
+    The logic is described in Python's docs:
+    http://docs.python.org/library/datetime.html#datetime.tzinfo
+    """
+    return value.tzinfo is None or value.tzinfo.utcoffset(value) is None
+
+
+def template_localtime(value, use_tz=None):
+    """
+    Checks if value is a datetime and converts it to local time if necessary.
+
+    If use_tz is provided and is not None, that will force the value to
+    be converted (or not), overriding the value of settings.USE_TZ.
+
+    This function is designed for use by the template engine.
+    """
+    should_convert = (isinstance(value, datetime.datetime)
+        and (settings.USE_TZ if use_tz is None else use_tz)
+        and not is_naive(value)
+        and getattr(value, 'convert_to_local_time', True))
+    return localtime(value) if should_convert else value
 
 
 def django_filter_to_jinja2(filter_func):
